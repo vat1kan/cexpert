@@ -1,0 +1,21 @@
+{% extends 'Cars/base.html' %}
+
+{% block title %}
+Result
+{% endblock%}
+
+{% block content %}
+</form>
+        {% for item in srch %}
+            <div>
+                <p>
+                    {{ item.name }}
+                    {{ item.carmod }}
+                </p>
+            </div>
+        {% endfor%}
+</form>
+ok
+ok??
+
+{% endblock%}

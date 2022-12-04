@@ -6,7 +6,7 @@ class Cars(models.Model):
     name = models.CharField(max_length=150,verbose_name='Марка')
     carmod = models.CharField(max_length = 150,verbose_name='Модель автомобиля')
     cost = models.IntegerField(verbose_name='Стоимость')
-    service = models.IntegerField(verbose_name='Стоимость обслуживания в год')
+    serv = models.IntegerField(verbose_name='Стоимость обслуживания в год')
     picture = models.ImageField(upload_to ='pictures/%Y/%M/%D/',blank = True,verbose_name='Изображение')
     type = models.ForeignKey('Types',on_delete = models.PROTECT, null=True,verbose_name='Кузов')
     fuel = models.ForeignKey('Fuel',on_delete = models.PROTECT, null=True, verbose_name='Вид топлива')

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <style>
-    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <body style="min-height: 100%; border: black;">
         <div class="d-flex flex-column flex-md-row align-items-center pb-1 mb-1 border-bottom border-3">
             <a href="{% url 'home' %}" class="d-flex align-items-center text-dark text-decoration-none ms-lg-5">
@@ -19,9 +19,11 @@
               <a class="me-3 py-2 text-dark text-decoration-none" href="admin">Админ</a>
             </nav>
         </div>
-        <div style="width: 60%; margin-left: 20%; border: 1px solid black; padding: 3%;">
-          {% block content %}
-          {% endblock %}
+        <div class="card" style="width: 60%;height: 100%; margin-left: 20%;">
+          <div class="card-body fs-5">
+            {% block content %}
+            {% endblock %}
+          </div>
         </div>
     </body>
 </html>

@@ -5,65 +5,54 @@
 {% endblock %}
 
 {% block content %}
-<div class="card" style="width: 60%;height: 100%; margin-left: 20%;">
-  <div class="card-body fs-5">
-      <form>
-          <div>
-            <label class="text-lg-s">Бюджет </label>
-            <input type="range" style="size: 30px ;" value="5000" min="5000" max="100000" step="5000" oninput="this.nextElementSibling.value = this.value">
-            <output>5000</output>$
-          </div>
-        </form>
-        <form>
-          <div>
-            <label class="text-lg-s">Годовой доход </label>
-            <input type="number" min="0" step="1000" style="width: 150px; border-radius: 10px; margin-left: 1%;">$
-          </div>
-        </form>
-        <form>
-          <div>
-            <label class="text-lg-s">Количество пассажиров </label>
-            <div class="dropdown" style="padding-left: 0%;">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Выбрать количество пассажиров
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-        </form>
-        <form>
-          <div>
-            <label class="text-lg-s">Тип местности: </label>
-            <div class="dropdown" style="padding-left: 0%;">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Выбрать местность
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-        </form>
-        <form>
-          <div>
-            <label class="text-lg-s">Тип кузова </label>
-            <div class="dropdown" style="padding-left: 0%;">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Выбрать тип кузова
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-        </form>
-  </div>
+<form action="{% url 'home' %}" method="POST">
+    {% csrf_token %}
+    <p>
+        <label for="{{ form.subject.id_for_name }}">Предпочитаемая марка (опционально):</label>
+        {{ form.name }}
+    </p>
+    <p>
+        <p>
+            <label for="{{ form.subject.id_for_cost }}" name = "srch_cost">Бюджет:</label>
+            {{ form.cost }}
+            <output>50000</output>$
+        </p>
+    </p>
+    <p>
+        <label for="{{ form.subject.id_for_serv }}" name = "serv">Стоимость обслуживания:</label>
+        {{ form.serv }}
+    </p>
+    <p>
+        <label for="{{ form.subject.id_for_type }}" name = "type">Кузов:</label>
+        {{ form.type }}
+    </p>
+    <p>
+        <label for="{{ form.subject.id_for_name }}" name = "fuel">Топливо:</label>
+        {{ form.fuel }}
+    </p>
+    <p>
+        <label for="{{ form.subject.id_for_name }}" name = "country">Местность:</label>
+        {{ form.country }}
+    </p>
+    
+    <p class="text-center">
+      <button class="text-center w-25 btn btn-lg btn-primary" type="submit" name = "submit" value="Submit">Найти</button>
+    </p>
+
+</form>
+{% if submitbutton == "Submit" %} 
+    {% for item in srch %}
+        <div>
+            <p>
+                {{ item.name }}
+                {{ item.carmod }}
+            </p>
+        </div>
+    {% endfor%}
+
+{% endif %}
+</form>
+
 {% endblock %}
+
+    
