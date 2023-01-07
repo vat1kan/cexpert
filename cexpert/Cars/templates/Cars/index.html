@@ -5,10 +5,35 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+    label {
+        display: inline-block;
+        position: relative;
+    }
+
+    label:hover::after {
+        content: attr(data-info);
+        font-size: 14px;
+        position: absolute;
+        width: 250px;
+        padding: 10px;
+        left: 50%;
+        margin-left: 100px;
+        border-radius: 7px;
+        border: solid 1px;
+        border-color: black;
+        background-color: #e8e8e8;
+        text-align: center;
+        color: rgb(0, 0, 0);
+        cursor: default;
+    }
+</style>
+
 <form action="{% url 'home' %}" method="POST">
     {% csrf_token %}
     <p>
-        <label for="{{ form.subject.id_for_name }}">Предпочитаемая марка (опционально):</label>
+        <label for="{{ form.subject.id_for_name }}">Предпочитаемая марка:</label>
         {{ form.name }}
     </p>
     <p>
@@ -19,7 +44,7 @@
         </p>
     </p>
     <p>
-        <label for="{{ form.subject.id_for_serv }}" name = "serv">Стоимость обслуживания:</label>
+        <label for="{{ form.subject.id_for_serv }}" name = "serv" data-info="Годовой доход необходимо указать для подсчета сервисного обслуживания автомобиля во время его эксплуатации">Годовой доход: <img width="20px" height="20px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/2048px-Infobox_info_icon.svg.png"></label>
         {{ form.serv }}
     </p>
     <p>
@@ -36,22 +61,8 @@
     </p>
     
     <p class="text-center">
-      <button class="text-center w-25 btn btn-lg btn-primary" type="submit" name = "submit" value="Submit">Найти</button>
+      <button class="btn w-25 btn-lg btn-outline-primary" type="submit" name = "submit" value="Submit">Найти</button>
     </p>
-
-</form>
-{% if submitbutton == "Submit" %} 
-    {% for item in srch %}
-        <div>
-            <p>
-                {{ item.name }}
-                {{ item.carmod }}
-            </p>
-        </div>
-    {% endfor%}
-
-{% endif %}
-</form>
 
 {% endblock %}
 

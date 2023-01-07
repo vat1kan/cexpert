@@ -4,31 +4,51 @@ import pandas as pd
 np.set_printoptions(suppress=True,
    formatter={'float_kind':'{:0.4f}'.format})
 
-# def Grading (df):
-#     df = df.drop(df.columns[[0, 1]], axis=1)
-#     df[4] = df[4].replace(['Manual', 'Auto',], [1, 2])
-#     df[5] = df[5].replace(['Gas', 'Diesel'], [2, 1])
-#     return df
+def Initialization(data):
+    dataFrame = pd.DataFrame(data)
+    data_array = dataFrame.drop(['name__brand','carmod','picture','type__type'],axis = 1)
+    return data_array
 
-def Normalization(df):
-    #df = Grading(df)
-    w = np.zeros(df.shape[1])
-    arr = np.array(df)
+def Grading(data, search_value):
+    Cars = Initialization(data)
+    if str(search_value) == "Город":
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['3','2','1'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['4','3','2','1'])
+    if str(search_value) == "Пригород":
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['2','3','1'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['2','4','3','1'])
+    if str(search_value) == "Сложно проходимая местность":
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['2','1'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['2','1','3'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','4','2','3'])
+    if str(search_value) == "Шоссе":
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['1','3','2'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','2','3','4'])
+    return Cars
+
+
+def Normalization(data,search_value):
+    Cars = Grading(data,search_value)
+    R = Cars.to_numpy().astype(float)
+    w = np.zeros(Cars.shape[1])
     for i in range(len(w)):
-        w[i] = np.power(np.sum(np.square(np.array(df[i+2].values))),0.5)
-    for j in range(arr.shape[1]):
-        for i in range(arr.shape[0]):
-            arr[i,j] = arr[i,j]/w[j] 
-    return arr
+        w[i] = np.power(np.sum(np.square(R[:,i])),0.5)
+    for j in range(R.shape[1]):
+        for i in range(R.shape[0]):
+            R[i,j] = R[i,j]/w[j]
+    return R
 
-def R_Max_Min(df):
-    arr = Normalization(df)
+def R_Max_Min(data,search_value):
+    arr = Normalization(data,search_value)
     r_max = np.amax(arr,axis = 0)
     r_min = np.amin(arr,axis = 0)
     return arr, r_max, r_min
 
-def Distances(df):
-    arr, r_max, r_min = R_Max_Min(df)
+def Distances(data,search_value):
+    arr, r_max, r_min = R_Max_Min(data,search_value)
     S_plus = np.zeros(arr.shape[0])
     S_min = np.zeros(arr.shape[0])
     for i in range(arr.shape[0]):
@@ -37,34 +57,16 @@ def Distances(df):
     return S_plus, S_min
 
 
-def Closeness(df):
-    s_plus, s_min = Distances(df)
+def Closeness(data,search_value):
+    s_plus, s_min = Distances(data,search_value)
     k = np.zeros(s_plus.shape)
     for i in range(len(k)):
         k[i] = s_min[i]/(s_plus[i]+s_min[i])
     return k
 
-# def Result1(data):
-#     dataFrame = pd.DataFrame(data)
-#     df = dataFrame.drop(dataFrame.columns[[0, 1,2,5]], axis=1)
-#     sorted_list = np.array(dataFrame)
-#     k = Closeness(df)
-#     sort = np.argsort(k)
-#     return sorted_list[~sort]
-
-
-
-# data = [[1,'Name1',26000,2,'Manual','Gas',2006,3],
-#         [2,'Name2',19300,1.8,'Auto','Gas',2001,3],
-#         [3,'Name3',14490,1.8,'Manual','Diesel',2003,1],
-#         [4,'Name4',19900,2.4,'Auto','Gas',2007,2]]
-
-# dataFrame = pd.DataFrame(data)
-
-# res = Result(data,dataFrame)
-
-def dataFrame(data):
+def Topsis(data,search_value):
     dataFrame = pd.DataFrame(data)
-    #df = np.array(dataFrame)
-    df = dataFrame.drop(['id','name','carmod','picture'],axis = 1)
-    return df
+    sorted_list = np.array(dataFrame)
+    k = Closeness(data, search_value)
+    sort = np.argsort(k)
+    return sorted_list[~sort][0]

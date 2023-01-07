@@ -5,17 +5,23 @@ Result
 {% endblock%}
 
 {% block content %}
-</form>
-        {% for item in srch %}
-            <div>
-                <p>
-                    {{ item.name }}
-                    {{ item.carmod }}
-                </p>
-            </div>
-        {% endfor%}
-</form>
-ok
-ok??
-
+        <img class="bd-placeholder-img card-img-top" width="25%" height="25%" src = {{ car_img }}>
+        <div class="card-body">
+        <p class="card-text">Исходя из заданных параметров лучшим выбором для Вас станет {{ car_brand }} {{ car_model }} {{ car_year }} года выпуска.
+            Рыночная стоимость составляет {{ car_cost }}$. 
+        </p>
+        <ul class="list-group list-group-flush" style="font-size:medium">
+            <li class="list-group-item">Коробка передач: {{ car_trans }}</li>
+            <li class="list-group-item">Объем двигателя: {{ car_volume }} л.</li>
+            <li class="list-group-item">Привод: {{ car_drive }}</li>
+            <li class="list-group-item">Тип топлива: {{ car_fuel }}</li>
+            <li class="list-group-item">Кузов: {{ car_type }}</li>
+        </ul>
+        <div class="d-flex justify-content-center ">
+          <div class="btn-group ">
+            <a class="btn btn-lg btn-outline-primary" href="https://www.google.com/search?q=Купить {{car_brand }} {{ car_model }} {{ car_year }}" target="_blank">Купить</a>
+            <a class="btn btn-lg btn-outline-primary" href="{% url 'home' %}">Назад</a>
+          </div>
+        </div>
+      </div>
 {% endblock%}
