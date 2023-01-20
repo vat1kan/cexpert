@@ -33,12 +33,12 @@
 <form action="{% url 'home' %}" method="POST">
     {% csrf_token %}
     <p>
-        <label for="{{ form.subject.id_for_name }}">Предпочитаемая марка:</label>
+        <label for="{{ form.subject.id_for_name }}" data-info="Выберете марку предпочитаемого автомобиля">Предпочитаемая марка:</label>
         {{ form.name }}
     </p>
     <p>
         <p>
-            <label for="{{ form.subject.id_for_cost }}" name = "srch_cost">Бюджет:</label>
+            <label for="{{ form.subject.id_for_cost }}" name = "srch_cost" data-info="На основе указанного бюджета подберется автомобиль по цене">Бюджет:</label>
             {{ form.cost }}
             <output>50000</output>$
         </p>
@@ -48,15 +48,15 @@
         {{ form.serv }}
     </p>
     <p>
-        <label for="{{ form.subject.id_for_type }}" name = "type">Кузов:</label>
+        <label for="{{ form.subject.id_for_type }}" name = "type" data-info="Предпочитаемый кузов автомобиля">Кузов:</label>
         {{ form.type }}
     </p>
     <p>
-        <label for="{{ form.subject.id_for_name }}" name = "fuel">Топливо:</label>
+        <label for="{{ form.subject.id_for_name }}" name = "fuel" data-info="Предпочитаемый вид топлива автомобиля">Топливо:</label>
         {{ form.fuel }}
     </p>
     <p>
-        <label for="{{ form.subject.id_for_name }}" name = "country">Местность:</label>
+        <label for="{{ form.subject.id_for_name }}" name = "country" data-info="Выберете тип местности в которой автомобиль чаще всего эксплуатируется">Местность:</label>
         {{ form.country }}
     </p>
     
