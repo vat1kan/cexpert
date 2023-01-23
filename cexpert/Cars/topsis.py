@@ -6,27 +6,33 @@ np.set_printoptions(suppress=True,
 
 def Initialization(data):
     dataFrame = pd.DataFrame(data)
-    data_array = dataFrame.drop(['name__brand','carmod','picture','type__type'],axis = 1)
+    data_array = dataFrame.drop(['name__brand','carmod','picture'],axis = 1)
+    for i in range(len(data_array['cost'])):
+        data_array['cost'][i] = data_array['cost'][i]/10000
     return data_array
 
 def Grading(data, search_value):
     Cars = Initialization(data)
     if str(search_value) == "Город":
-        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
-        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['3','2','1'])
-        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['4','3','2','1'])
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['10','100'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['100','50','10'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['100','70','40','10'])
+        Cars['type__type'] = Cars['type__type'].replace(['Внедорожник','Купе','Седан','Кабриолет'],['1','50','100','20'])
     if str(search_value) == "Пригород":
-        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
-        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['2','3','1'])
-        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['2','4','3','1'])
-    if str(search_value) == "Сложно проходимая местность":
-        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['2','1'])
-        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['2','1','3'])
-        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','4','2','3'])
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['10','100'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['60','100','10'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['30','100','70','10'])
+        Cars['type__type'] = Cars['type__type'].replace(['Внедорожник','Купе','Седан','Кабриолет'],['20','40','100','1'])
+    if str(search_value) == "Бездорожье":
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1000','10'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['1','30','10000'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','1000','40','70'])
+        Cars['type__type'] = Cars['type__type'].replace(['Внедорожник','Купе','Седан','Кабриолет'],['100000','1','1','1'])
     if str(search_value) == "Шоссе":
-        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['1','2'])
-        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['1','3','2'])
-        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','2','3','4'])
+        Cars['trans__trans'] = Cars['trans__trans'].replace(['Ручная','Автоматическая'],['10','100'])
+        Cars['drive__drive'] = Cars['drive__drive'].replace(['Передний','Задний','Полный'],['10','100','60'])
+        Cars['fuel__fuel'] = Cars['fuel__fuel'].replace(['Электро','Бензин','Газ','Дизель'],['1','30','70','100'])
+        Cars['type__type'] = Cars['type__type'].replace(['Внедорожник','Купе','Седан','Кабриолет'],['20','10','100','10'])
     return Cars
 
 

@@ -23,7 +23,7 @@ class CarForm(forms.Form):
         attrs={ 
                 "class":"form-control",
                 "autocomplete":"off",
-                "min":"5000",
+                "min":"3000",
                 "step":"1000"
             }))
 
@@ -31,7 +31,7 @@ class CarForm(forms.Form):
         attrs={
                 "class":"form-control",
                 "autocomplete":"off",
-                "min":"0",
+                "min":"500",
                 "step":"250"
             }))
 
@@ -79,14 +79,14 @@ class FindForm(forms.Form):
     name = forms.ModelChoiceField(queryset=Name.objects.all(), label = 'Марка',empty_label="Выберите марку автомобиля",widget=forms.Select(
         attrs={
             "class":"form-control"
-            }), required=False)
+            }), required=True)
 
     cost = forms.IntegerField(label = 'Стоимость',widget=forms.NumberInput(
         attrs={ 
+                "class":"form-range",
                 "type":"range",
                 "oninput":"this.nextElementSibling.value = this.value",
-                "color":"black",
-                "min":"5000",
+                "min":"10000",
                 "max":"100000",
                 "step":"1000",
             }))
@@ -94,8 +94,8 @@ class FindForm(forms.Form):
         attrs={
                 "class":"form-control",
                 "autocomplete":"off",
-                "min":"0",
-                "step":"250"
+                "min":"3000",
+                "step":"250",
             }))
 
     trans = forms.ModelChoiceField(queryset=Transmission.objects.all(), label = 'Трансмиссия',empty_label="Выберите коробку передачь",widget=forms.Select(
