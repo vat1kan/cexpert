@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .forms import CarForm, FindForm
 from .models import Cars
 from .topsis import Distances, Topsis
+from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.db.models import Q
 
 
@@ -48,3 +49,12 @@ def add_car(request):
 
 def result (request,context):
     return render(request,'Cars/result.html',context)
+
+def error_404(request, exception):
+    context = {'Bad URL'}
+    return render(request, 'Cars/404.html', context, status=404)
+
+
+def traceback_handler(request):
+    context = {'Some error on server side occured.'}
+    return render(request, 'Cars/traceback.html', context, status=500)
