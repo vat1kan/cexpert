@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://camo.githubusercontent.com/b69e8363f2480666b3c0a5a472a60137ed93aea1a8e83513c5b615d107a9423b/68747470733a2f2f696d672e69636f6e73382e636f6d2f3f73697a653d3531322669643d353534393426666f726d61743d706e67" width="100" alt="project-logo">
+  <img src="https://images.vexels.com/content/127711/preview/flat-vintage-car-icon-8bd3aa.png" width="100" alt="project-logo">
 </p>
 <p align="center">
     <h1 align="center">CarEXPERT</h1>
